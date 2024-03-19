@@ -19,3 +19,4 @@
 [submodule "benchmarks/cvt/ootb/CvT"]
 	path = benchmarks/cvt/ootb/CvT
 	url = https://github.com/ppalaniappan-amd/CvT.git
+	branch = ppalania/cvt_tunable_ops
