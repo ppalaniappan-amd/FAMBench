@@ -1,0 +1,24 @@
+version: '3'
+services:
+  fambench_cvt_tunableops:
+    build:
+      dockerfile: pyt_fambench.ubuntu.amd.Dockerfile
+      context: .
+    image: "${USER}/fambench-cvt-tunableops"
+    container_name: "${USER}-fambench-cvt-tunableops"
+    shm_size: '64G'
+    ipc: host
+    cap_add:
+      - SYS_PTRACE
+      - SYS_ADMIN
+    devices:
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    network_mode: host
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    volumes:
+      - ../:/workspace
+    working_dir: /workspace
+    tty: true
