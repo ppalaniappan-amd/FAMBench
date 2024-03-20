@@ -1,2 +1,5 @@
-## Build docker image
-docker build -t <image_name> -f pyt_fambench.ubuntu.amd.Dockerfile .
+## Build docker image and spin container
+docker compose up -d
+
+## Run container
+docker exec -it ${USER}-fambench-cvt-tunableops bash
