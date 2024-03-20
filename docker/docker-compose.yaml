@@ -5,6 +5,9 @@ services:
       dockerfile: pyt_fambench.ubuntu.amd.Dockerfile
       context: .
     image: "${USER}/fambench-cvt-tunableops"
+    restart: always
+    env_file:
+      - .env
     container_name: "${USER}-fambench-cvt-tunableops-8GPU"
     shm_size: '64G'
     ipc: host
@@ -35,6 +38,9 @@ services:
       dockerfile: pyt_fambench.ubuntu.amd.Dockerfile
       context: .
     image: "${USER}/fambench-cvt-tunableops"
+    restart: always
+    env_file:
+      - .env
     container_name: "${USER}-fambench-cvt-tunableops-1GPU"
     shm_size: '64G'
     ipc: host

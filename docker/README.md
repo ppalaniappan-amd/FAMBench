@@ -1,3 +1,6 @@
+## Create .env file to set environment variable for docker container
+bash gen-env-file.sh
+
 ## Build docker image and spin container
 docker compose up -d
 
