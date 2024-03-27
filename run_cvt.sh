@@ -23,13 +23,13 @@ DLM_RUNTIME_NGPUS=8
 #clear checkpoints
 rm -rf OUTPUT
 # enable tunable ops
-export PYTORCH_TUNABLEOP_ENABLED=1
+# export PYTORCH_TUNABLEOP_ENABLED=1
 # warmup run with 1 epoch to generate tunable op solutions
-MASTER_ADDR=$MASTER_ADDR NODE_COUNT=$NODE_COUNT RANK=$RANK bash run_cvt_train.sh $DLM_RUNTIME_NGPUS $DLM_MODEL_BATCH_SIZE 1
+# MASTER_ADDR=$MASTER_ADDR NODE_COUNT=$NODE_COUNT RANK=$RANK bash run_cvt_train.sh $DLM_RUNTIME_NGPUS $DLM_MODEL_BATCH_SIZE 1
 # disable further tuning
-export PYTORCH_TUNABLEOP_TUNING=0
+# export PYTORCH_TUNABLEOP_TUNING=0
 #clear checkpoints
-rm -rf OUTPUT
+# rm -rf OUTPUT
 # final performance run
 MASTER_ADDR=$MASTER_ADDR NODE_COUNT=$NODE_COUNT RANK=$RANK bash run_cvt_train.sh $DLM_RUNTIME_NGPUS $DLM_MODEL_BATCH_SIZE $DLM_MODEL_NUM_EPOCHS 2>&1 | tee log.1machine.txt
 
