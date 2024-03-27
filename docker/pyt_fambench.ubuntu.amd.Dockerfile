@@ -1,6 +1,6 @@
 # CONTEXT {'gpu_vendor': 'AMD', 'guest_os': 'UBUNTU'}
 # FBGEMM requires pytorch 1.11
-ARG BASE_DOCKER=rocm/pytorch-private:13484_ubuntu22.04_py3.9_pytorch_tunablegemm-temp_bdf2207
+ARG BASE_DOCKER=compute-artifactory.amd.com:5000/rocm-plus-docker/framework/compute-rocm-dkms-no-npi-hipclang:13710_ubuntu20.04_py3.9_pytorch_rocm6.2_internal_testing_de739ad
 FROM $BASE_DOCKER
 USER root
 ENV WORKSPACE_DIR=/workspace
