@@ -1,15 +1,15 @@
 version: '3'
 services:
-  fambench_cvt_tunableops_8GPU:
+  fambench_cvt_amd_8GPU:
     build:
       dockerfile: pyt_fambench.ubuntu.amd.Dockerfile
       context: .
-    image: "${USER}/fambench-cvt-tunableops"
+    image: "${USER}/fambench-cvt-amd"
     restart: always
     env_file:
       - .env
-    container_name: "${USER}-fambench-cvt-tunableops-8GPU"
-    shm_size: '64G'
+    container_name: "${USER}-fambench-cvt-amd-8GPU"
+    shm_size: '16gb'
     ipc: host
     cap_add:
       - SYS_PTRACE
