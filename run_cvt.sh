@@ -20,12 +20,19 @@ DLM_MODEL_NUM_EPOCHS=10
 #MASTER_ADDR=$MASTER_ADDR NODE_COUNT=$NODE_COUNT RANK=$RANK bash run_cvt_train.sh $DLM_RUNTIME_NGPUS $DLM_MODEL_BATCH_SIZE $DLM_MODEL_NUM_EPOCHS 2>&1 | tee log.1gpu.txt
 
 DLM_RUNTIME_NGPUS=8 
+export HIP_FORCE_DEV_KERNARG=1
 #clear checkpoints
 rm -rf OUTPUT
 # enable tunable ops
 # export PYTORCH_TUNABLEOP_ENABLED=1
 # warmup run with 1 epoch to generate tunable op solutions
-# MASTER_ADDR=$MASTER_ADDR NODE_COUNT=$NODE_COUNT RANK=$RANK bash run_cvt_train.sh $DLM_RUNTIME_NGPUS $DLM_MODEL_BATCH_SIZE 1
+export MIOPEN_ENABLE_LOGGING=1
+export MIOPEN_ENABLE_LOGGING_CMD=1
+export MIOPEN_LOG_LEVEL=6
+MASTER_ADDR=$MASTER_ADDR NODE_COUNT=$NODE_COUNT RANK=$RANK bash run_cvt_train.sh $DLM_RUNTIME_NGPUS $DLM_MODEL_BATCH_SIZE 1 2>&1 | tee log.1machine.miopenconfig.txt
+unset MIOPEN_ENABLE_LOGGING
+unset MIOPEN_ENABLE_LOGGING_CMD
+unset MIOPEN_LOG_LEVEL
 # disable further tuning
 # export PYTORCH_TUNABLEOP_TUNING=0
 #clear checkpoints
