@@ -8,6 +8,18 @@ class CvtLogParser:
     def __init__(self, last_steps):
         super(CvtLogParser, self).__init__()
         self.last_steps = last_steps
+    
+    def process_trace(self, path, regex):
+        config_cnt = {}
+        with open(file=path, mode="r", encoding="UTF-8") as f:
+            for line in f:
+                match = regex.search(line)
+                if match:
+                    if match.group(0) in config_cnt:
+                        config_cnt[match.group(1)] += 1
+                    else:
+                        config_cnt[match.group(1)] = 1
+        return config_cnt
 
     def parse(self, path):
         print(f"Parsing {path}")
@@ -58,5 +70,25 @@ if __name__ == "__main__":
             writer = csv.DictWriter(f, fieldnames=labels)
             writer.writeheader()
             writer.writerow(metric)
+    except IOError:
+        print("I/O error")
+
+    miopen_regex = re.compile(r"MIOpen\(HIP\): Command \[.*\] (./bin/MIOpenDriver .*)$")
+    miopen_config_cnt = parser.process_trace(logfile, miopen_regex)
+    rocblas_bench_regex = re.compile(r"(./rocblas-bench .*)$")
+    rocblas_bench_cnt = parser.process_trace(logfile, rocblas_bench_regex)
+    rocblas_function_regex = re.compile(r"(^.*rocblas_function: .*)$")
+    rocblas_function_cnt = parser.process_trace(logfile, rocblas_function_regex)
+    fields = ['config', 'calls']
+    try:
+        with open(f"cvt_configs.csv", "w") as f:
+            writer = csv.writer(f)
+            writer.writerow(fields)
+            for config in miopen_config_cnt:
+                writer.writerow([config, miopen_config_cnt[config]])
+            for config in rocblas_bench_cnt:
+                writer.writerow([config, rocblas_bench_cnt[config]])
+            for config in rocblas_function_cnt:
+                writer.writerow([config, rocblas_function_cnt[config]])
     except IOError:
         print("I/O error")
