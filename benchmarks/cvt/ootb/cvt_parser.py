@@ -81,7 +81,7 @@ if __name__ == "__main__":
     rocblas_function_cnt = parser.process_trace(logfile, rocblas_function_regex)
     fields = ['config', 'calls']
     try:
-        with open(f"cvt_configs.csv", "w") as f:
+        with open(f"configs_cvt.csv", "w") as f:
             writer = csv.writer(f)
             writer.writerow(fields)
             for config in miopen_config_cnt:
