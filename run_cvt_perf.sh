@@ -14,10 +14,7 @@ NODE_COUNT=1
 RANK=0
 MASTER_ADDR=$(hostname -I | awk '{print $1}')
 DLM_MODEL_BATCH_SIZE=256 
-DLM_MODEL_NUM_EPOCHS=10 
-
-#DLM_RUNTIME_NGPUS=1
-#MASTER_ADDR=$MASTER_ADDR NODE_COUNT=$NODE_COUNT RANK=$RANK bash run_cvt_train.sh $DLM_RUNTIME_NGPUS $DLM_MODEL_BATCH_SIZE $DLM_MODEL_NUM_EPOCHS 2>&1 | tee log.1gpu.txt
+DLM_MODEL_NUM_EPOCHS=300 
 
 DLM_RUNTIME_NGPUS=8 
 export HIP_FORCE_DEV_KERNARG=1
@@ -25,16 +22,6 @@ export HIP_FORCE_DEV_KERNARG=1
 rm -rf OUTPUT
 # profiling is set to NONE by default. Change it in benchmarks/cvt/ootb/CvT/tools/train.py for PyTorch or RPD tracing.
 MASTER_ADDR=$MASTER_ADDR NODE_COUNT=$NODE_COUNT RANK=$RANK bash run_cvt_train.sh $DLM_RUNTIME_NGPUS $DLM_MODEL_BATCH_SIZE $DLM_MODEL_NUM_EPOCHS 2>&1 | tee log.1machine.txt
-
-# collect configs for 1 epoch
-rm -rf OUTPUT
-export MIOPEN_ENABLE_LOGGING_CMD=1
-#export MIOPEN_LOG_LEVEL=6
-export ROCBLAS_LAYER=6
-MASTER_ADDR=$MASTER_ADDR NODE_COUNT=$NODE_COUNT RANK=$RANK bash run_cvt_train.sh $DLM_RUNTIME_NGPUS $DLM_MODEL_BATCH_SIZE 1 2>&1 | tee log.1machine.configs.txt
-unset MIOPEN_ENABLE_LOGGING_CMD
-#unset export MIOPEN_LOG_LEVEL
-unset ROCBLAS_LAYER
 
 #val_1gpu=$(cat "log.1gpu.txt" | grep -oP "'performance', \K.*(?=\),)")
 val_1machine=$(cat "log.1machine.txt" | grep -oP "'performance', \K.*(?=\),)")
