@@ -81,13 +81,25 @@ if __name__ == "__main__":
     rocblas_function_cnt = parser.process_trace(logfile, rocblas_function_regex)
     fields = ['config', 'calls']
     try:
-        with open(f"configs_cvt.csv", "w") as f:
+        with open(f"miopen_configs_cvt.csv", "w") as f:
             writer = csv.writer(f)
             writer.writerow(fields)
             for config in miopen_config_cnt:
                 writer.writerow([config, miopen_config_cnt[config]])
+    except IOError:
+        print("I/O error")
+    try:
+        with open(f"rocblas_bench_configs_cvt.csv", "w") as f:
+            writer = csv.writer(f)
+            writer.writerow(fields)
             for config in rocblas_bench_cnt:
                 writer.writerow([config, rocblas_bench_cnt[config]])
+    except IOError:
+        print("I/O error")
+    try:
+        with open(f"rocblas_function_configs_cvt.csv", "w") as f:
+            writer = csv.writer(f)
+            writer.writerow(fields)
             for config in rocblas_function_cnt:
                 writer.writerow([config, rocblas_function_cnt[config]])
     except IOError:
