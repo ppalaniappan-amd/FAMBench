@@ -7,6 +7,9 @@
 [submodule "FBGEMM"]
 	path = FBGEMM
 	url = https://github.com/pytorch/FBGEMM
+[submodule "benchmarks/cvt/ootb/CvT"]
+	path = benchmarks/cvt/ootb/CvT
+	url = https://github.com/ppalaniappan-amd/CvT.git
 [submodule "benchmarks/bevt/ootb/BEVT"]
 	path = benchmarks/bevt/ootb/BEVT
 	url = https://github.com/mindest/BEVT.git
@@ -16,6 +19,3 @@
 [submodule "benchmarks/oscar/ootb/Oscar"]
 	path = benchmarks/oscar/ootb/Oscar
 	url = https://github.com/guschmue/Oscar.git
-[submodule "benchmarks/cvt/ootb/CvT"]
-	path = benchmarks/cvt/ootb/CvT
-	url = https://github.com/ppalaniappan-amd/CvT.git
