@@ -1,3 +1,9 @@
+# Build docker image and spin container
+Follow instructions as specified here - docker/README.md
+
+# Run CvT benchmark
+bash run_cvt.sh -p(performance) -c(config collection) -t(rpd trace collection)
+
 # FAMBench (Family Friendly Benchmarking)
 
 These benchmarks represent important workloads. The faster these benchmarks are, the happier owners of important workloads are. The maintainers, updates, and rules in this benchmark suite all exist to keep the connection between the people running these benchmarks and the people running the original workloads.
