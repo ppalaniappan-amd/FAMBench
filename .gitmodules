@@ -9,7 +9,7 @@
 	url = https://github.com/pytorch/FBGEMM
 [submodule "benchmarks/cvt/ootb/CvT"]
 	path = benchmarks/cvt/ootb/CvT
-	url = https://github.com/gopitk/CvT.git
+	url = https://github.com/ppalaniappan-amd/CvT.git
 [submodule "benchmarks/bevt/ootb/BEVT"]
 	path = benchmarks/bevt/ootb/BEVT
 	url = https://github.com/mindest/BEVT.git
